@@ -13,6 +13,7 @@ import ChangeCampaign from './Component/Changecamp';
 import Register from './Component/Register';
 import Login from './Component/Login';
 import ReferralHubAI from './Component/ReferralHubAI';
+import CampaignPage from './Component/Campaignpage';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HeroPage />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path='/refer' element={<CampaignPage/>}/>
 
         {/* Nested Routes Inside /adminpage */}
         <Route path="/adminpage" element={<Restpages />}>

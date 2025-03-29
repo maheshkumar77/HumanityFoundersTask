@@ -15,7 +15,7 @@ const Navbar = () => {
     const fetchAdminData = async () => {
       setIsLoading(true);
       try {
-        const res = await axios.get("http://localhost:5000/admin/name");
+        const res = await axios.get(" http://localhost:5000/admin/name");
         setName(res.data.name);
         setGmail(res.data.message); // Changed from res.message to res.data.message
       } catch (error) {

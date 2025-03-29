@@ -18,7 +18,7 @@ const ReferralDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const customerRes = await axios.get("http://localhost:5000/refer/data");
+        const customerRes = await axios.get(" http://localhost:5000/refer/data");
         setCustomers(customerRes.data);
 
         const total = customerRes.data.reduce((acc, user) => acc + (user.referralCount || 0), 0);
@@ -28,7 +28,7 @@ const ReferralDashboard = () => {
           user.referralCount > (top?.referralCount || 0) ? user : top, null);
         setTopReferrer(topUser);
 
-        const campaignRes = await axios.get("http://localhost:5000/campaign/data");
+        const campaignRes = await axios.get(" http://localhost:5000/campaign/data");
         setCampaigns(campaignRes.data);
       } catch (error) {
         console.error("Error fetching data:", error);

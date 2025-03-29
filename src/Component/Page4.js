@@ -16,7 +16,7 @@ const ReferralCampaigns = () => {
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/campaign/data");
+        const res = await axios.get(" http://localhost:5000/campaign/data");
         setCampaigns(res.data);
       } catch (error) {
         setError("Error fetching campaign data");
@@ -35,11 +35,11 @@ const ReferralCampaigns = () => {
   };
 
   const handleViewAnalytics = (campaignId) => {
-    navigate(`/update/${campaignId}`);
+    navigate(`/adminpage/update/${campaignId}`);
   };
 
   const handleEditSettings = (campaignId) => {
-    navigate(`/update/${campaignId}`);
+    navigate(`/adminpage/update/${campaignId}`);
   };
 
   const filteredCampaigns = campaigns.filter(campaign =>

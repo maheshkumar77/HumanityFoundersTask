@@ -21,7 +21,7 @@ const AnalyticsPage = () => {
     
     const fetchCampaignData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/campaign/${campaignId}`);
+        const response = await axios.get(` http://localhost:5000/campaign/${campaignId}`);
         setCampaignData(response.data);
         setLoading(false);
       } catch (err) {
@@ -34,12 +34,16 @@ const AnalyticsPage = () => {
   }, [campaignId]);
 
   const handleUpdate = () => {
-    navigate(`/updates/${campaignId}`);
+    navigate(`/adminpage/update/${campaignId}`);
   };
 
   const handleChange = () => {
-    navigate(`/change/${campaignId}`);
+    navigate(`/adminpage/change/${campaignId}`);
   };
+  const delatecamp =async ()=>{
+    const res= await axios.delete(`http://localhost:5000/campaign/${campaignId}`);
+    alert(res);
+  }
 
   if (loading) return (
     <div className="flex items-center justify-center min-h-screen">
@@ -268,7 +272,7 @@ const AnalyticsPage = () => {
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={handleChange}
+            onClick={delatecamp}
             className="px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition"
           >
             End Campaign

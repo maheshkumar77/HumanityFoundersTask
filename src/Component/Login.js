@@ -23,7 +23,7 @@ const Login = () => {
     setLoading(true);
     
     try {
-      const response = await axios.post("http://localhost:5000/register/login", formData);
+      const response = await axios.post(" http://localhost:5000/register/login", formData);
       localStorage.setItem('token', response.data.token);
       toast.success('Login successful!');
       setTimeout(() => navigate('/dashboard'), 1500);

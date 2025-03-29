@@ -27,7 +27,7 @@ const Register = () => {
     setLoading(true);
     
     try {
-      await axios.post("http://localhost:5000/register", formData);
+      await axios.post(" http://localhost:5000/register", formData);
       toast.success('Registration successful!');
       setTimeout(() => navigate('/login'), 1500);
     } catch (err) {

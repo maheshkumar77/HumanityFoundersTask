@@ -20,7 +20,7 @@ const CustomersDashboard = () => {
     const fetchCustomers = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get("http://localhost:5000/refer/data");
+        const res = await axios.get(" http://localhost:5000/refer/data");
         setCustomers(res.data);
       } catch (error) {
         console.error("Error fetching customers:", error);

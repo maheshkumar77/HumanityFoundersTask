@@ -20,7 +20,7 @@ const CampaignPage = () => {
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/campaign/data');
+        const response = await axios.get(' http://localhost:5000/campaign/data');
         setCampaigns(response.data);
         // Initialize share options state for each campaign
         const shareStates = {};
@@ -42,7 +42,7 @@ const CampaignPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/login', loginForm);
+      const response = await axios.post(' http://localhost:5000/login', loginForm);
       localStorage.setItem('token', response.data.token);
       setIsLoggedIn(true);
       setError('');

@@ -48,7 +48,7 @@ const ChangeCampaign = () => {
   useEffect(() => {
     const fetchCampaignData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/campaign/${campaignId}`);
+        const response = await axios.get(` http://localhost:5000/campaign/${campaignId}`);
         const data = response.data;
         
         setFormData({
@@ -86,7 +86,7 @@ const ChangeCampaign = () => {
     setSubmitting(true);
     
     try {
-      await axios.put(`http://localhost:5000/campaign/${campaignId}`, formData);
+      await axios.put(` http://localhost:5000/campaign/${campaignId}`, formData);
       toast.success('Campaign updated successfully!');
       setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err) {

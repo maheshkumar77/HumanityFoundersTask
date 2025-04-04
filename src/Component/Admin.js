@@ -13,7 +13,7 @@ const AdminHeader = () => {
         const fetchAdminData = async () => {
             setIsLoading(true);
             try {
-                const res = await axios.get(" http://localhost:5000/admin/name");
+                const res = await axios.get(" https://newbackend-jvbs.onrender.com/admin/name");
                 setName(res.data.name || 'John Doe');
             } catch (error) {
                 console.error("Error fetching admin data:", error);

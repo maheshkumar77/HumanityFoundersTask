@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMenu, FiX, FiHome, FiTrendingUp, FiUsers, FiMail, FiSettings, FiZap } from 'react-icons/fi';
+import { FiMenu, FiX, FiHome, FiGift, FiUsers, FiPlusCircle } from 'react-icons/fi';
 import axios from 'axios';
 
-const Navbar = () => {
+const UserNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [gmail, setGmail] = useState('');
+  const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchAdminData = async () => {
+    const fetchUserData = async () => {
       setIsLoading(true);
       try {
-        const res = await axios.get(" https://newbackend-jvbs.onrender.com/admin/name");
+        const res = await axios.get("https://newbackend-jvbs.onrender.com/user/profile");
         setName(res.data.name);
-        setGmail(res.data.message); // Changed from res.message to res.data.message
+        setEmail(res.data.email);
       } catch (error) {
-        console.error("Error fetching admin data:", error);
+        console.error("Error fetching user data:", error);
       } finally {
         setIsLoading(false);
       }
     };
-    fetchAdminData();
+    fetchUserData();
   }, []);
 
   useEffect(() => {
@@ -40,12 +40,10 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { path: "/adminpage/dashboard", name: "Dashboard", icon: <FiHome /> },
-    { path: "/adminpage/campaigns", name: "Campaigns", icon: <FiTrendingUp /> },
-    { path: "/adminpage/customers", name: "Customers", icon: <FiUsers /> },
-    { path: "/adminpage/follow-ups", name: "Follow Ups", icon: <FiMail /> },
-    { path: "/adminpage/integrations", name: "Integrations", icon: <FiSettings /> },
-    { path: "/adminpage/ai", name: "Referral AI", icon: <FiZap /> }
+    { path: "/user/dashboard", name: "User Dashboard", icon: <FiHome /> },
+    { path: "/user/rewards", name: "Rewards", icon: <FiGift /> },
+    { path: "/user/friends", name: "Friends", icon: <FiUsers /> },
+    { path: "/user/new-offer", name: "New Offer", icon: <FiPlusCircle /> }
   ];
 
   const toggleMenu = () => {
@@ -106,7 +104,7 @@ const Navbar = () => {
                   className="text-2xl font-bold flex items-center justify-center"
                 >
                   <span className="bg-white text-blue-600 p-2 rounded-lg mr-2">
-                    <FiZap />
+                    <FiGift />
                   </span>
                   ReferralHub
                 </motion.h1>
@@ -116,7 +114,7 @@ const Navbar = () => {
                   transition={{ delay: 0.3 }}
                   className="text-blue-100 text-sm mt-1"
                 >
-                  Admin Panel
+                  User Portal
                 </motion.p>
               </motion.div>
 
@@ -170,8 +168,8 @@ const Navbar = () => {
                       <FiUsers />
                     </div>
                     <div className="ml-3">
-                      <p className="text-white font-medium">{name || 'Admin User'}</p>
-                      <p className="text-blue-100 text-xs">{gmail || 'admin@referralhub.com'}</p>
+                      <p className="text-white font-medium">{name || 'User'}</p>
+                      <p className="text-blue-100 text-xs truncate">{email || 'user@example.com'}</p>
                     </div>
                   </div>
                 )}
@@ -184,4 +182,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default UserNavbar;

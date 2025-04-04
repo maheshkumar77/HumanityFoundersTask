@@ -4,9 +4,12 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '../context/Contectapi'; // ✅ Import useAuth
 
 const Register = () => {
   const navigate = useNavigate();
+  const { login } = useAuth(); // ✅ Access login function from context
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,18 +28,21 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
-      await axios.post(" http://localhost:5000/register", formData);
+      await axios.post("https://newbackend-jvbs.onrender.com/register", formData);
+
+      // ✅ Store the email in context
+      login(formData.email);
+
       toast.success('Registration successful!');
-      setTimeout(() => navigate('/login'), 1500);
+      setTimeout(() => navigate('/user/dashboard'), 1500);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed');
       setLoading(false);
     }
   };
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -62,7 +68,7 @@ const Register = () => {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <ToastContainer position="top-center" autoClose={3000} />
-      <motion.div 
+      <motion.div
         initial="hidden"
         animate="visible"
         variants={containerVariants}

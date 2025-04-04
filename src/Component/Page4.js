@@ -16,7 +16,7 @@ const ReferralCampaigns = () => {
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const res = await axios.get(" http://localhost:5000/campaign/data");
+        const res = await axios.get(" https://newbackend-jvbs.onrender.com/campaign/data");
         setCampaigns(res.data);
       } catch (error) {
         setError("Error fetching campaign data");

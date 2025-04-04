@@ -7,7 +7,7 @@ const HeroPage = () => {
   const navigate = useNavigate();
 
   const handleReferClick = () => {
-    navigate('/refer');
+    navigate('/register');
   };
 
   const handleLoginClick = () => {

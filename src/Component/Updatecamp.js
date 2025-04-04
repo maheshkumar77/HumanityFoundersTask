@@ -21,7 +21,7 @@ const AnalyticsPage = () => {
     
     const fetchCampaignData = async () => {
       try {
-        const response = await axios.get(` http://localhost:5000/campaign/${campaignId}`);
+        const response = await axios.get(` https://newbackend-jvbs.onrender.com/campaign/${campaignId}`);
         setCampaignData(response.data);
         setLoading(false);
       } catch (err) {
@@ -41,7 +41,7 @@ const AnalyticsPage = () => {
     navigate(`/adminpage/change/${campaignId}`);
   };
   const delatecamp =async ()=>{
-    const res= await axios.delete(`http://localhost:5000/campaign/${campaignId}`);
+    const res= await axios.delete(`https://newbackend-jvbs.onrender.com/campaign/${campaignId}`);
     alert(res);
   }
 

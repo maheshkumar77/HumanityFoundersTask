@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
-import Navbar from './Navbar';
-import AdminHeader from './Admin';
+import UserNavbar from './Usernavbar';
+import UserHeader from '../user/Userad';
 
 
-const Restpages = () => {
+const Userpage = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const menuButtonRef = useRef(null);
 
@@ -23,7 +23,7 @@ const Restpages = () => {
       {/* Desktop Sidebar */}
       {!isMobile && (
         <div className="w-64 bg-white shadow-md p-4 z-0">
-          <Navbar isMobile={false} />
+          <UserNavbar isMobile={false} />
         </div>
       )}
 
@@ -41,11 +41,11 @@ const Restpages = () => {
       )}
 
       {/* Mobile Navbar handles its own state */}
-      {isMobile && <Navbar isMobile={true} />}
+      {isMobile && <UserNavbar isMobile={true} />}
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col overflow-hidden z-10 ">
-        <AdminHeader />
+       <UserHeader/>
         <div className="flex-1 overflow-auto p-4 md:p-6">
           <Outlet />
         </div>
@@ -54,4 +54,4 @@ const Restpages = () => {
   );
 };
 
-export default Restpages;
+export default Userpage;

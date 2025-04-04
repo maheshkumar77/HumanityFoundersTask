@@ -1,35 +1,132 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   FiArrowUp,
   FiArrowDown,
   FiChevronRight,
   FiUserPlus,
   FiSearch,
-  FiFilter
+  FiFilter,
+  FiX
 } from "react-icons/fi";
+import { FaWhatsapp, FaTelegram, FaInstagram, FaFacebook } from "react-icons/fa";
+import { BsChatLeftText } from "react-icons/bs";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CustomersDashboard = () => {
   const [customers, setCustomers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const previousCount = 5; // Assuming last month's count for demo
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareMessage, setShareMessage] = useState("Join me on this amazing platform! Register here: ");
+  const previousCount = 5;
+  const navigate = useNavigate();
+  const baseUrl = window.location.origin;
+
+  const shareOptions = [
+    { name: 'WhatsApp', icon: <FaWhatsapp className="text-green-500" size={24} />, color: 'bg-green-100' },
+    { name: 'Facebook', icon: <FaFacebook className="text-blue-600" size={24} />, color: 'bg-blue-100' },
+    { name: 'SMS', icon: <BsChatLeftText className="text-blue-500" size={24} />, color: 'bg-blue-100' },
+    { name: 'Telegram', icon: <FaTelegram className="text-blue-400" size={24} />, color: 'bg-blue-50' },
+    { name: 'Instagram', icon: <FaInstagram className="text-pink-500" size={24} />, color: 'bg-pink-100' }
+  ];
 
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(" http://localhost:5000/refer/data");
+        const res = await axios.get("https://newbackend-jvbs.onrender.com/refer/data");
         setCustomers(res.data);
       } catch (error) {
         console.error("Error fetching customers:", error);
+        toast.error("Failed to load customer data");
       } finally {
         setIsLoading(false);
       }
     };
     fetchCustomers();
   }, []);
+
+  const sendEmailInvites = async () => {
+    try {
+      alert("Mesage are send to Loyal Customer ");
+      const registrationLink = `${baseUrl}/register`;
+      const emailData = {
+        subject: "Invitation to Join Our Exclusive Campaign",
+        text: `Hello,\n\nYou've been invited to join our exclusive campaign! Sign up now to enjoy special benefits.\n\nRegister here: ${registrationLink}\n\nLooking forward to seeing you there!`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+            <h2 style="color: #4a6baf;">You're Invited!</h2>
+            <p>Hello,</p>
+            <p>You've been invited to join our exclusive campaign! Sign up now to enjoy:</p>
+            <ul>
+              <li>Special sign-up bonuses</li>
+              <li>Exclusive deals and offers</li>
+              <li>Early access to new features</li>
+            </ul>
+            <div style="text-align: center; margin: 25px 0;">
+              <a href="${registrationLink}" 
+                 style="background-color: #4a6baf; color: white; padding: 12px 24px; 
+                        text-decoration: none; border-radius: 4px; font-weight: bold;">
+                Join Now
+              </a>
+            </div>
+            <p>Or copy this link: ${registrationLink}</p>
+            <p style="margin-top: 30px;">Looking forward to seeing you there!</p>
+            <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;">
+            <p style="font-size: 12px; color: #777;">
+              If you didn't request this invitation, you can safely ignore this email.
+            </p>
+          </div>
+        `
+      };
+
+      const response = await axios.post("https://newbackend-jvbs.onrender.com/send-email", emailData);
+      toast.success("Invitation emails sent successfully!");
+      setShowShareModal(false);
+    } catch (error) {
+      console.error("Error sending emails:", error);
+      toast.error("Failed to send invitation emails");
+    }
+  };
+
+  const handleShare = (platform) => {
+    let url = '';
+    const registerLink = `${baseUrl}/register`;
+    const message = encodeURIComponent(`${shareMessage} ${registerLink}`);
+    
+    switch(platform) {
+      case 'WhatsApp':
+        url = `https://wa.me/?text=${message}`;
+        break;
+      case 'Facebook':
+        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(registerLink)}&quote=${message}`;
+        break;
+      case 'SMS':
+        url = `sms:?body=${message}`;
+        break;
+      case 'Telegram':
+        url = `https://t.me/share/url?url=${registerLink}&text=${shareMessage}`;
+        break;
+      case 'Instagram':
+        url = `https://instagram.com`;
+        break;
+      default:
+        break;
+    }
+    
+    window.open(url, '_blank');
+    setShowShareModal(false);
+  };
+
+  const copyToClipboard = () => {
+    const registerLink = `${baseUrl}/register`;
+    navigator.clipboard.writeText(registerLink);
+    toast.success('Registration link copied to clipboard!');
+  };
 
   const filteredCustomers = customers.filter(customer =>
     customer.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -171,6 +268,7 @@ const CustomersDashboard = () => {
                 whileHover={{ x: 5 }}
                 whileTap={{ scale: 0.95 }}
                 className="w-full flex items-center justify-between bg-white/10 hover:bg-white/20 p-3 rounded-lg transition-all border border-white/20"
+                onClick={() => navigate('/adminpage/createref')}
               >
                 <span>Generate referral links</span>
                 <FiChevronRight />
@@ -179,6 +277,7 @@ const CustomersDashboard = () => {
                 whileHover={{ x: 5 }}
                 whileTap={{ scale: 0.95 }}
                 className="w-full flex items-center justify-between bg-white text-blue-600 hover:bg-blue-50 p-3 rounded-lg transition-all"
+                onClick={sendEmailInvites}
               >
                 <span>Invite customers</span>
                 <FiUserPlus />
@@ -314,6 +413,88 @@ const CustomersDashboard = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Share Modal */}
+      <AnimatePresence>
+        {showShareModal && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25 }}
+              className="bg-white rounded-xl p-6 max-w-md w-full shadow-xl"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-semibold">Invite Friends</h3>
+                <button 
+                  onClick={() => setShowShareModal(false)} 
+                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                >
+                  <FiX size={20} />
+                </button>
+              </div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <div className="mb-4">
+                  <label htmlFor="share-message" className="block text-sm font-medium text-gray-700 mb-1">
+                    Custom Message
+                  </label>
+                  <textarea
+                    id="share-message"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    rows="3"
+                    value={shareMessage}
+                    onChange={(e) => setShareMessage(e.target.value)}
+                  />
+                </div>
+                
+                <div className="grid grid-cols-5 gap-3">
+                  {shareOptions.map((option) => (
+                    <motion.button
+                      key={option.name}
+                      whileHover={{ y: -3 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => handleShare(option.name)}
+                      className={`flex flex-col items-center p-3 rounded-lg ${option.color} hover:opacity-90 transition-all`}
+                    >
+                      {option.icon}
+                      <span className="mt-2 text-xs">{option.name}</span>
+                    </motion.button>
+                  ))}
+                </div>
+                
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                  <p className="text-sm text-gray-600 mb-2">Registration link:</p>
+                  <div className="flex">
+                    <input
+                      type="text"
+                      readOnly
+                      value={`${baseUrl}/register`}
+                      className="flex-1 p-2 border border-gray-300 rounded-l-lg text-sm truncate"
+                    />
+                    <button 
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-lg text-sm"
+                      onClick={copyToClipboard}
+                    >
+                      Copy
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

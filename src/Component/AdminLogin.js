@@ -19,7 +19,7 @@ const AdminLogin = () => {
     setError('');
 
     try {
-      const response = await axios.post(' http://localhost:5000/admin/login', { email, password });
+      const response = await axios.post(' https://newbackend-jvbs.onrender.com/admin/login', { email, password });
       localStorage.setItem('adminToken', response.data.token);
       navigate('/adminpage/dashboard');
     } catch (err) {
@@ -32,7 +32,7 @@ const AdminLogin = () => {
 
   const handleGoogleLogin = () => {
     // In a real app, you would implement Google OAuth here
-    window.location.href = ' http://localhost:5000/auth/google';
+    window.location.href = ' https://newbackend-jvbs.onrender.com/auth/google';
   };
 
   const handleDemoLogin = () => {

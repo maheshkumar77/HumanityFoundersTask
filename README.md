@@ -118,9 +118,6 @@ POST	/api/referrals	Create new referral
 Deployment
 The application is deployed with the following links:
 
-Frontend: Live Demo
-
-Backend: API Base URL
 
 Contributing
 Fork the project

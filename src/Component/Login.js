@@ -4,8 +4,10 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '../context/Contectapi';
 
 const Login = () => {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -23,10 +25,10 @@ const Login = () => {
     setLoading(true);
     
     try {
-      const response = await axios.post(" http://localhost:5000/register/login", formData);
-      localStorage.setItem('token', response.data.token);
+      const response = await axios.post("https://newbackend-jvbs.onrender.com/login", formData);
       toast.success('Login successful!');
-      setTimeout(() => navigate('/dashboard'), 1500);
+      login(formData.email); // Store email in context
+      setTimeout(() => navigate('/user/dashboard'), 1500);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Login failed');
       setLoading(false);
@@ -97,26 +99,6 @@ const Login = () => {
             />
           </motion.div>
 
-          <motion.div variants={itemVariants} className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
-                Remember me
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <Link to="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
-                Forgot password?
-              </Link>
-            </div>
-          </motion.div>
-
           <motion.div variants={itemVariants} className="pt-2">
             <motion.button
               type="submit"
@@ -131,7 +113,7 @@ const Login = () => {
                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                   className="block h-5 w-5 border-2 border-white border-t-transparent rounded-full"
                 />
-              ) : 'Sign in'}
+              ) : 'Login'}
             </motion.button>
           </motion.div>
         </form>
@@ -140,7 +122,7 @@ const Login = () => {
           <p className="text-sm text-gray-600">
             Don't have an account?{' '}
             <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">
-              Register now
+              Sign up
             </Link>
           </p>
         </motion.div>

@@ -106,7 +106,7 @@ const CreateCampaign = () => {
         aiOptimization: formData.aiOptimization
       };
 
-      const response = await axios.post(' http://localhost:5000/campaign', campaignData);
+      const response = await axios.post(' https://newbackend-jvbs.onrender.com/campaign', campaignData);
       
       if (response.status === 201) {
         setSuccess(true);

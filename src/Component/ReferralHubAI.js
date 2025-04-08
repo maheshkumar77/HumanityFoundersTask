@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 const ReferralHubAI = () => {
   const [messages, setMessages] = useState([
     { 
-      text: "Welcome to ReferralHub AI! I'm your intelligent assistant here to help with all things referrals.", 
+      text: "Hello! I'm your AI Business Assistant specializing in referral marketing and business growth strategies.", 
       sender: 'ai',
       typing: false
     },
     { 
-      text: "I can help you with:\n- Creating and managing referral campaigns\n- Analyzing referral performance\n- Generating referral links\n- Tracking conversions\n\nHow can I assist you today?",
+      text: "I can help with:\n- Business strategy development\n- Referral program optimization\n- Marketing campaign analysis\n- Customer acquisition\n- Revenue growth tactics\n\nWhat would you like to discuss today?",
       sender: 'ai',
       typing: false 
     }
@@ -19,39 +19,56 @@ const ReferralHubAI = () => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Enhanced AI knowledge base
-  const aiKnowledge = {
+  // Comprehensive business knowledge base
+  const businessKnowledge = {
     greetings: [
-      "Hello! How can I help with your referral program today?",
-      "Hi there! Let's grow your network together. What do you need?",
-      "Welcome back! Ready to boost your referrals?"
+      "Hello! How can I assist with your business today?",
+      "Hi there! Let's grow your business together. What do you need?",
+      "Welcome back! Ready to optimize your business strategy?"
     ],
-    referrals: {
-      create: "To create a referral campaign, you'll need:\n1. Campaign name\n2. Reward structure\n3. Duration\n4. Target audience\n\nWould you like me to guide you through setting up a new campaign?",
-      track: "Here's how to track referrals effectively:\n- Use unique referral codes\n- Monitor conversion rates\n- Set up automated follow-ups\n- Analyze which channels perform best\n\nI can help set up tracking for you.",
-      optimize: "To optimize your referrals:\n1. Increase rewards for top referrers\n2. Simplify the sharing process\n3. Add social proof\n4. Run time-limited bonuses\n\nYour current conversion rate could improve by 20-30% with these tactics.",
-      examples: "Successful referral campaign examples:\n1. Dropbox's 'Give 500MB, Get 500MB'\n2. Airbnb's travel credits\n3. Uber's free rides for both parties\n\nWant me to help design a similar program?"
+    strategy: {
+      development: "To develop a strong business strategy:\n1. Define clear objectives\n2. Analyze market trends\n3. Identify competitive advantages\n4. Set measurable KPIs\n5. Create implementation roadmap\n\nWould you like me to help craft a strategy for your specific business?",
+      execution: "Effective strategy execution requires:\n- Clear communication\n- Employee alignment\n- Regular progress reviews\n- Agile adjustments\n- Performance incentives\n\nYour current execution could improve by focusing on quarterly goal-setting.",
+      innovation: "Innovation strategies that work:\n1. Customer co-creation\n2. Cross-industry inspiration\n3. Rapid prototyping\n4. Fail-fast mentality\n5. Innovation sprints\n\nI can suggest specific innovation approaches for your industry."
     },
-    campaigns: {
-      create: "Let's create a campaign step-by-step:\n1. Name your campaign\n2. Set reward structure (fixed or percentage)\n3. Determine duration\n4. Create shareable assets\n\nWhere would you like to start?",
-      analyze: "Your campaign analysis shows:\n- Average conversion: 35%\n- Top referrer: Jane D. (12 referrals)\n- Best performing channel: Email (42% conversion)\n\nWould you like detailed insights on any metric?",
-      improve: "To improve campaign performance:\n1. A/B test your messaging\n2. Add urgency (limited-time offers)\n3. Segment your audience\n4. Follow up with inactive referrers\n\nI can generate specific recommendations for your current campaigns."
+    marketing: {
+      referral: "Powerful referral marketing tactics:\n1. Tiered rewards system\n2. Social proof integration\n3. Automated referral tracking\n4. Personalized thank yous\n5. Referral contests\n\nYour current program could benefit from adding urgency elements.",
+      digital: "Digital marketing essentials:\n- SEO optimized content\n- Data-driven ad targeting\n- Marketing automation\n- Conversion rate optimization\n- Omnichannel presence\n\nYour digital presence shows opportunities in video content.",
+      branding: "Strong branding creates:\n1. 3-5x higher memorability\n2. 20-30% premium pricing power\n3. 50%+ higher customer loyalty\n\nLet's audit your current brand positioning."
     },
-    analytics: {
-      basic: "Key referral metrics:\n- Total referrals: 128\n- Conversion rate: 34%\n- Avg. reward value: $25\n- ROI: 320%\n\nNeed any specific analysis?",
-      advanced: "Advanced insights:\n1. Referrals from LinkedIn convert 28% higher\n2. Wednesday afternoons have peak sharing\n3. Video explanations increase conversions by 40%\n\nWant me to prepare a full report?"
+    sales: {
+      funnel: "Sales funnel optimization:\n1. Top: Educational content (70% of buyers)\n2. Middle: Comparison tools (50% conversion boost)\n3. Bottom: Risk-reversal offers (35% lift)\n\nYour funnel could improve middle-stage nurturing.",
+      techniques: "High-conversion sales techniques:\n- Consultative selling\n- Storytelling\n- Social proof\n- Scarcity triggers\n- Presumptive close\n\nI can recommend specific techniques for your product.",
+      team: "Building a sales team:\n1. Hire for emotional intelligence\n2. Implement gamification\n3. Continuous training\n4. Clear metrics\n5. Career pathways\n\nYour team structure suggests adding specialization roles."
     },
-    help: "I specialize in:\n\n📊 Referral program setup\n🚀 Campaign optimization\n📈 Performance analytics\n🤝 Relationship tracking\n💡 Strategy recommendations\n\nWhat would you like to focus on?",
-    default: "I'm trained specifically on referral marketing best practices. Could you clarify your question? I can help with:\n- Campaign setup\n- Performance tracking\n- Referral incentives\n- Conversion optimization"
+    finance: {
+      growth: "Financial growth strategies:\n1. Revenue diversification\n2. Cost optimization\n3. Strategic partnerships\n4. Investment in automation\n5. Data-driven decisions\n\nYour financials indicate opportunity in subscription models.",
+      funding: "Funding options comparison:\n- Bootstrapping (full control)\n- Angel investors (expertise + capital)\n- Venture capital (rapid scaling)\n- Bank loans (predictable costs)\n\nWhich stage is your business at currently?",
+      metrics: "Key financial metrics:\n- CAC (Customer Acquisition Cost)\n- LTV (Lifetime Value)\n- MRR/ARR (Recurring Revenue)\n- Gross Margin\n- Burn Rate\n\nYour metrics show strongest performance in customer retention."
+    },
+    operations: {
+      efficiency: "Operational efficiency tactics:\n1. Process mapping\n2. Automation opportunities\n3. Lean methodology\n4. Continuous improvement\n5. Employee feedback loops\n\nYour operations could benefit from workflow automation.",
+      scaling: "Scaling challenges to address:\n- Systems before growth\n- Culture preservation\n- Quality control\n- Cash flow management\n- Leadership development\n\nYour scaling plan should prioritize technology infrastructure.",
+      remote: "Remote work best practices:\n- Async communication standards\n- Results-oriented culture\n- Virtual team building\n- Cybersecurity protocols\n- Flexible schedules\n\nYour remote policies could enhance with clearer OKRs."
+    },
+    help: "I specialize in:\n\n📈 Business strategy\n🤝 Referral marketing\n💰 Financial planning\n🛠 Operations optimization\n📊 Data-driven decisions\n\nWhat area would you like to focus on?",
+    default: "I'm trained on comprehensive business knowledge. Could you clarify your question? I can help with:\n- Market analysis\n- Growth strategies\n- Operational efficiency\n- Financial planning\n- Team development"
   };
 
-  // Background elements data
+  // Business metrics visualization data
+  const metricsData = {
+    revenue: [12000, 15000, 18000, 21000, 25000, 29000],
+    customers: [150, 180, 210, 250, 290, 340],
+    referrals: [25, 30, 45, 60, 80, 110]
+  };
+
+  // Background elements with business icons
   const backgroundElements = [
     { id: 1, icon: '📈', size: 'w-16 h-16', position: 'top-10 left-10', animation: { y: [0, -20, 0], rotate: [0, 5, 0] } },
-    { id: 2, icon: '🤝', size: 'w-20 h-20', position: 'bottom-20 right-20', animation: { scale: [1, 1.1, 1], rotate: [0, 10, 0] } },
-    { id: 3, icon: '🚀', size: 'w-14 h-14', position: 'top-1/3 right-1/4', animation: { x: [0, 10, 0], y: [0, -10, 0] } },
-    { id: 4, icon: '💡', size: 'w-12 h-12', position: 'bottom-1/4 left-1/3', animation: { opacity: [0.3, 0.7, 0.3], scale: [1, 1.2, 1] } },
-    { id: 5, icon: '📊', size: 'w-18 h-18', position: 'top-1/4 right-1/5', animation: { rotate: [0, 15, 0], scale: [1, 1.05, 1] } }
+    { id: 2, icon: '💼', size: 'w-20 h-20', position: 'bottom-20 right-20', animation: { scale: [1, 1.1, 1], rotate: [0, 10, 0] } },
+    { id: 3, icon: '🌐', size: 'w-14 h-14', position: 'top-1/3 right-1/4', animation: { x: [0, 10, 0], y: [0, -10, 0] } },
+    { id: 4, icon: '💰', size: 'w-12 h-12', position: 'bottom-1/4 left-1/3', animation: { opacity: [0.3, 0.7, 0.3], scale: [1, 1.2, 1] } },
+    { id: 5, icon: '🛠', size: 'w-18 h-18', position: 'top-1/4 right-1/5', animation: { rotate: [0, 15, 0], scale: [1, 1.05, 1] } }
   ];
 
   // Floating particles
@@ -95,21 +112,56 @@ const ReferralHubAI = () => {
     }, 20);
   };
 
-  // AI response generator
+  // AI response generator with business intelligence
   const generateAIResponse = (userInput) => {
     const input = userInput.toLowerCase().trim();
     
-    if (/(hi|hello|hey)/.test(input)) return aiKnowledge.greetings[Math.floor(Math.random() * aiKnowledge.greetings.length)];
-    if (/(create|start|make|set up).*(referral|program)/.test(input)) return aiKnowledge.referrals.create;
-    if (/(track|monitor|follow).*(referral|program)/.test(input)) return aiKnowledge.referrals.track;
-    if (/(improve|optimize|boost|increase).*(referral|conversion|rate)/.test(input)) return aiKnowledge.referrals.optimize;
-    if (/(campaign|promotion).*(create|start|make)/.test(input)) return aiKnowledge.campaigns.create;
-    if (/(analytics|data|stats|metrics|report|performance)/.test(input)) {
-      return /(detailed|advanced|deep dive)/.test(input) ? aiKnowledge.analytics.advanced : aiKnowledge.analytics.basic;
-    }
-    if (/(help|support|what can you do)/.test(input)) return aiKnowledge.help;
+    // Greetings
+    if (/(hi|hello|hey)/.test(input)) return businessKnowledge.greetings[Math.floor(Math.random() * businessKnowledge.greetings.length)];
     
-    return aiKnowledge.default;
+    // Strategy topics
+    if (/(strategy|plan|roadmap)/.test(input)) {
+      if (/(develop|create|make)/.test(input)) return businessKnowledge.strategy.development;
+      if (/(execute|implement|roll out)/.test(input)) return businessKnowledge.strategy.execution;
+      if (/(innovate|innovation|new ideas)/.test(input)) return businessKnowledge.strategy.innovation;
+      return businessKnowledge.strategy.development;
+    }
+    
+    // Marketing topics
+    if (/(market|brand|promot)/.test(input)) {
+      if (/(referral|word of mouth)/.test(input)) return businessKnowledge.marketing.referral;
+      if (/(digital|online|social media|seo)/.test(input)) return businessKnowledge.marketing.digital;
+      if (/(brand|identity|positioning)/.test(input)) return businessKnowledge.marketing.branding;
+      return businessKnowledge.marketing.digital;
+    }
+    
+    // Sales topics
+    if (/(sales|revenue|convert)/.test(input)) {
+      if (/(funnel|pipeline)/.test(input)) return businessKnowledge.sales.funnel;
+      if (/(technique|method|approach)/.test(input)) return businessKnowledge.sales.techniques;
+      if (/(team|staff|rep)/.test(input)) return businessKnowledge.sales.team;
+      return businessKnowledge.sales.funnel;
+    }
+    
+    // Finance topics
+    if (/(finance|money|revenue|profit)/.test(input)) {
+      if (/(grow|increase|scale)/.test(input)) return businessKnowledge.finance.growth;
+      if (/(fund|raise|invest)/.test(input)) return businessKnowledge.finance.funding;
+      if (/(metric|kpi|measure)/.test(input)) return businessKnowledge.finance.metrics;
+      return businessKnowledge.finance.growth;
+    }
+    
+    // Operations topics
+    if (/(operat|process|efficien|productiv)/.test(input)) {
+      if (/(efficien|streamline|optimize)/.test(input)) return businessKnowledge.operations.efficiency;
+      if (/(scale|grow|expand)/.test(input)) return businessKnowledge.operations.scaling;
+      if (/(remote|work from home|wfh)/.test(input)) return businessKnowledge.operations.remote;
+      return businessKnowledge.operations.efficiency;
+    }
+    
+    if (/(help|support|what can you do)/.test(input)) return businessKnowledge.help;
+    
+    return businessKnowledge.default;
   };
 
   const handleSendMessage = (e) => {
@@ -192,7 +244,7 @@ const ReferralHubAI = () => {
         animate={{ opacity: 0.1 }}
         transition={{ delay: 1, duration: 2 }}
       >
-        ReferralHub
+        BusinessAI
       </motion.div>
 
       {/* Main chat container */}
@@ -243,7 +295,7 @@ const ReferralHubAI = () => {
                 >
                   🤖
                 </motion.span>
-                ReferralHub AI
+                Business AI Assistant
               </motion.h1>
               <motion.h2 
                 className="text-sm opacity-90"
@@ -251,7 +303,7 @@ const ReferralHubAI = () => {
                 animate={{ opacity: 0.9 }}
                 transition={{ delay: 0.4 }}
               >
-                Your intelligent referral marketing assistant
+                Expert advice for business growth and referral marketing
               </motion.h2>
             </div>
             <motion.div 
@@ -363,10 +415,10 @@ const ReferralHubAI = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
           >
-            Quick Actions
+            Quick Business Topics
           </motion.h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            {['Create Campaign', 'Track Referrals', 'View Analytics', 'Get Tips'].map((action, index) => (
+            {['Growth Strategy', 'Referral Program', 'Sales Tips', 'Financial Advice'].map((action, index) => (
               <motion.button
                 key={index}
                 initial={{ opacity: 0, y: 10 }}
@@ -404,7 +456,7 @@ const ReferralHubAI = () => {
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              placeholder="Ask about referral campaigns, analytics, or optimization..."
+              placeholder="Ask about business strategy, marketing, operations, or finance..."
               className="w-full border border-gray-300 rounded-l-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </motion.div>
@@ -439,7 +491,7 @@ const ReferralHubAI = () => {
                 >
                   ⏳
                 </motion.span>
-                Sending...
+                Thinking...
               </motion.span>
             ) : (
               <>

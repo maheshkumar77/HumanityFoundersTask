@@ -3,8 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX, FiHome, FiGift, FiUsers, FiPlusCircle } from 'react-icons/fi';
 import axios from 'axios';
+import { useAuth } from '../context/Contectapi';
 
 const UserNavbar = () => {
+  const { userEmail } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [email, setEmail] = useState('');
@@ -168,8 +170,8 @@ const UserNavbar = () => {
                       <FiUsers />
                     </div>
                     <div className="ml-3">
-                      <p className="text-white font-medium">{name || 'User'}</p>
-                      <p className="text-blue-100 text-xs truncate">{email || 'user@example.com'}</p>
+                      <p className="text-white font-medium">{'User'}</p>
+                      <p className="text-blue-100 text-xs truncate">{userEmail || 'user@example.com'}</p>
                     </div>
                   </div>
                 )}

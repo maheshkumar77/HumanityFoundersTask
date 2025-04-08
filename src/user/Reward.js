@@ -15,6 +15,8 @@ const RewardPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [shere,setShere]=useState();
+  const [name,setName]=useState();
   const [showShareOptions, setShowShareOptions] = useState(false);
   const baseUrl = window.location.origin;
 
@@ -27,7 +29,8 @@ const RewardPage = () => {
         // Fetch user data
         const userResponse = await axios.get(`https://newbackend-jvbs.onrender.com/refer/data/${userEmail}`);
         setUserData(userResponse.data);
-        
+        setShere(userResponse.data.referralCode)
+        setName(userResponse.data.name);
         // Fetch top referrer data
         const allUsersResponse = await axios.get("https://newbackend-jvbs.onrender.com/refer/data");
         const topUser = allUsersResponse.data.reduce((top, user) => 
@@ -49,7 +52,7 @@ const RewardPage = () => {
   }, [userEmail]);
 
   const getShareMessage = () => {
-    return `${userName || 'Your friend'} invites you to join and earn rewards!
+    return `${ name || 'Your friend'} invites you to join and earn rewards!
 
 ✨ Benefits you'll get:
 - Special sign-up bonus
@@ -57,7 +60,7 @@ const RewardPage = () => {
 - Early access to new features
 
 Use this coupon code during registration:
-🎁 Coupon Code: ${userData?.referralCode || 'YOUR_CODE'}
+🎁 Coupon Code: ${shere}
 
 Join now: ${baseUrl}/register`;
   };

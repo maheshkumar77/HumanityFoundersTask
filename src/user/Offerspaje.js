@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiGift, FiClock, FiPercent, FiCalendar, FiShare2 } from 'react-icons/fi';
+import { FiGift, FiPercent, FiCalendar, FiShare2 } from 'react-icons/fi';
 import Confetti from 'react-confetti';
 import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 import { useAuth } from '../context/Contectapi';
@@ -17,22 +17,15 @@ const OffersPage = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
-  const [formdata,setFormData]=useState({
-    subject:"",
-    text:"",
-    email:userEmail,
-  })
-
+  
+  
+ 
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
         const response = await axios.get('https://newbackend-jvbs.onrender.com/campaign/data');
         setCampaigns(response.data);
-        setFormData({
-          subject: response.data.title,
-          text:response.data.aboutCampaign,
-          email:userEmail,
-        })
+       
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -56,7 +49,7 @@ const OffersPage = () => {
   const sendMailtoUser= async ()=>{
  try{
   
-  const response= await axios.post("https://newbackend-jvbs.onrender.com/user/sendmail", formatDate);
+  const response= await axios.post("https://newbackend-jvbs.onrender.com/user/sendmail", userEmail);
   console.log(response.data);
   alert(response)
  }catch(error){

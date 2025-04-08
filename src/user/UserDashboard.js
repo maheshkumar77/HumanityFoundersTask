@@ -69,11 +69,11 @@ const UserDashboard = () => {
       toast.warning('No referral code available');
       return;
     }
-    const referralLink = `${window.location.origin}/register?ref=${userData.referralCode}`;
+    const referralLink = `${window.location.origin}/register`;
     navigator.clipboard.writeText(referralLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-    toast.success('Referral link copied to clipboard!');
+    toast.success('Registration link copied to clipboard!');
   };
 
   const shareReferralCode = async () => {
@@ -83,12 +83,13 @@ const UserDashboard = () => {
     }
 
     try {
-      const shareMessage = `${userData.name || 'Your friend'} invites you to join our platform!\n\n✨ Get these benefits:\n- Special sign-up bonus\n- Exclusive rewards\n- Premium features\n\nUse my referral code: ${userData.referralCode}\n\nJoin now: ${window.location.origin}/register?ref=${userData.referralCode}`;
+      const baseUrl = window.location.origin;
+      const shareMessage = `${userData.name || 'Your friend'} invites you to join and earn rewards!\n\n✨ Benefits you'll get:\n- Special sign-up bonus\n- Exclusive deals and offers\n- Early access to new features\n\nUse this coupon code during registration:\n🎁 Coupon Code: ${userData.referralCode}\n\nJoin now: ${baseUrl}/register`;
       
       const shareData = {
         title: `${userData.name || 'Your friend'} invites you!`,
         text: shareMessage,
-        url: `${window.location.origin}/register?ref=${userData.referralCode}`,
+        url: `${baseUrl}/register`,
       };
 
       if (navigator.share) {
@@ -103,7 +104,7 @@ const UserDashboard = () => {
     } catch (err) {
       console.error('Error sharing:', err);
       // Fallback if sharing is cancelled
-      const fallbackMessage = `Use my referral code ${userData.referralCode} at ${window.location.origin}/register`;
+      const fallbackMessage = `Use my coupon code ${userData.referralCode} at ${window.location.origin}/register`;
       navigator.clipboard.writeText(fallbackMessage);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -492,7 +493,7 @@ const UserDashboard = () => {
               transition={{ delay: 1.5 }}
               className="text-blue-100 mb-6 max-w-2xl mx-auto"
             >
-              Share your unique referral code with friends and earn amazing rewards for every successful referral.
+              Share your unique coupon code with friends and earn amazing rewards for every successful referral.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -514,7 +515,7 @@ const UserDashboard = () => {
                 onClick={copyToClipboard}
                 className="bg-blue-700 bg-opacity-50 hover:bg-opacity-70 text-white px-6 py-3 rounded-lg font-medium flex items-center"
               >
-                <FiCopy className="mr-2" /> Copy Referral Link
+                <FiCopy className="mr-2" /> Copy Registration Link
               </motion.button>
             </motion.div>
           </div>

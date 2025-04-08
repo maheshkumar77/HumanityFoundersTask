@@ -25,7 +25,7 @@ const Login = () => {
     setLoading(true);
     
     try {
-      const response = await axios.post("https://newbackend-jvbs.onrender.com/login", formData);
+      const response = await axios.post("http://localhost:5000/login", formData);//https://newbackend-jvbs.onrender.com
       toast.success('Login successful!');
       login(formData.email); // Store email in context
       setTimeout(() => navigate('/user/dashboard'), 1500);

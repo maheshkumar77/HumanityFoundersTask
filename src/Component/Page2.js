@@ -53,38 +53,8 @@ const CustomersDashboard = () => {
   const sendEmailInvites = async () => {
     try {
       alert("Mesage are send to Loyal Customer ");
-      const registrationLink = `${baseUrl}/register`;
-      const emailData = {
-        subject: "Invitation to Join Our Exclusive Campaign",
-        text: `Hello,\n\nYou've been invited to join our exclusive campaign! Sign up now to enjoy special benefits.\n\nRegister here: ${registrationLink}\n\nLooking forward to seeing you there!`,
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
-            <h2 style="color: #4a6baf;">You're Invited!</h2>
-            <p>Hello,</p>
-            <p>You've been invited to join our exclusive campaign! Sign up now to enjoy:</p>
-            <ul>
-              <li>Special sign-up bonuses</li>
-              <li>Exclusive deals and offers</li>
-              <li>Early access to new features</li>
-            </ul>
-            <div style="text-align: center; margin: 25px 0;">
-              <a href="${registrationLink}" 
-                 style="background-color: #4a6baf; color: white; padding: 12px 24px; 
-                        text-decoration: none; border-radius: 4px; font-weight: bold;">
-                Join Now
-              </a>
-            </div>
-            <p>Or copy this link: ${registrationLink}</p>
-            <p style="margin-top: 30px;">Looking forward to seeing you there!</p>
-            <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;">
-            <p style="font-size: 12px; color: #777;">
-              If you didn't request this invitation, you can safely ignore this email.
-            </p>
-          </div>
-        `
-      };
-
-      const response = await axios.post("https://newbackend-jvbs.onrender.com/send-email", emailData);
+      
+      const response = await axios.post("https://newbackend-jvbs.onrender.com/send-email");
       toast.success("Invitation emails sent successfully!");
       setShowShareModal(false);
     } catch (error) {
